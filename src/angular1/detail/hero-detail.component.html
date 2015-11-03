@@ -1,0 +1,10 @@
+<div ng-if="vm.hero">
+	<h2>{{vm.hero.name}} details!</h2>
+	<div>
+		<label>id: </label>{{vm.hero.id}}</div>
+	<div>
+		<label>name: </label>
+		<input ng-model="vm.hero.name" placeholder="name"/>
+	</div>
+	<button ng-click="vm.gotoHeroes()">Back</button>
+</div>
