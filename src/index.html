@@ -2,12 +2,22 @@
 <html>
 
 <head>
-  <base href="/src/"/>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="angular1/app/app.component.css">
   <link rel="stylesheet" href="angular1/dashboard/dashboard.component.css">
   <link rel="stylesheet" href="angular1/heroes/heroes.component.css">
-  <script src="bundle.js"></script>
+  <script src="../node_modules/systemjs/dist/system.src.js"></script>
+  <!--<script src="bundle.js"></script>-->
+  <script>
+    System.config({
+      packages: {'angular1': {defaultExtension: 'js'}},
+      map: {
+        'angular': '../../node_modules/angular/angular.js',
+        'angular-route': '../../node_modules/angular-route/angular-route.js'
+      },
+    });
+    System.import('angular1/bootstrap').catch(console.log.bind(console));
+  </script>
 </head>
 
 <body>
