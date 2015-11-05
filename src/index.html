@@ -14,19 +14,23 @@
       map: {
         'angular': '../../node_modules/angular/angular.js',
         'angular-route': '../../node_modules/angular-route/angular-route.js'
-      },
+      }
     });
     System.import('angular1/bootstrap').catch(console.log.bind(console));
   </script>
 </head>
 
 <body>
+  <!-- angular 1 app component -->
   <div ng-app="tourOfHeroes" ng-controller="AppController as app">
     <h1>{{app.title}}</h1>
     <a href="#/" class="router-link" ng-class="app.isActive('/')">Dashboard</a>
     <a href="#/heroes" class="router-link" ng-class="app.isActive('/heroes')">Heroes</a>
     <ng-view></ng-view>
   </div>
+
+  <!-- angular 2 app component -->
+  <tour-of-heroes></tour-of-heroes>
 </body>
 
 </html>
