@@ -11,9 +11,13 @@ The setup is using Typescript, just like the Tour of Heroes app in the tutorial 
 
 1. Run Webpack server which uses the TypeScript compiler and watch for changes `webpack-dev-server`
 
+1. Uncomment the script tag that loads bundle.js
+
 
 Alternative:
 
 1. Run the TypeScript compiler and watch for changes `npm run tsc`
 
 1. Open 2nd terminal and launch the app in the browser `npm start`
+
+1. Uncomment the script tag that calls SystemJS.
