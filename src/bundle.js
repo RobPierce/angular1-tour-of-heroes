@@ -44,65 +44,58 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var angular = __webpack_require__(2);
-	__webpack_require__(4);
-	var app_component_1 = __webpack_require__(6);
-	var dashboard_component_1 = __webpack_require__(7);
-	var heroes_component_1 = __webpack_require__(1);
+	__webpack_require__(1);
+	__webpack_require__(3);
+	var app_component_1 = __webpack_require__(5);
+	var dashboard_component_1 = __webpack_require__(6);
+	var heroes_component_1 = __webpack_require__(7);
 	var hero_detail_component_1 = __webpack_require__(8);
-	var hero_service_1 = __webpack_require__(9);
-	var router_config_1 = __webpack_require__(11);
-	angular.module('tourOfHeroes', ['ngRoute'])
+	var badge_component_1 = __webpack_require__(9);
+	var hero_service_1 = __webpack_require__(10);
+	var router_config_1 = __webpack_require__(12);
+	var app = angular.module('tourOfHeroes', ['ngRoute']);
+	// Angular 1 bootstrap
+	app
 	    .config(router_config_1.RouterConfig)
-	    .controller('AppController', app_component_1.AppController)
-	    .controller('DashboardController', dashboard_component_1.DashboardController)
-	    .controller('HeroesController', heroes_component_1.HeroesController)
-	    .controller('HeroDetailController', hero_detail_component_1.HeroDetailController)
-	    .service('HeroService', hero_service_1.HeroService);
+	    .controller({
+	    AppController: app_component_1.AppController,
+	    DashboardController: dashboard_component_1.DashboardController,
+	    HeroesController: heroes_component_1.HeroesController,
+	    HeroDetailController: hero_detail_component_1.HeroDetailController
+	})
+	    .service('HeroService', hero_service_1.HeroService)
+	    .directive('badge', badge_component_1.BadgeDirective);
+	// Angular 2 upgrade bootstrap
+	/*
+	 * import {UpgradeAdapter} from 'angular2/upgrade';
+	 * var adapter = new UpgradeAdapter();
+	 *
+	 * adapter.bootstrap(document.body, ['tourOfHeroes']);
+	 *
+	 * // Make ng2 component available in ng1
+	 * app.directive('heroes', adapter.downgradeNg2Component(HeroesComponent);
+	 *
+	 * // Make ng1 HeroService injectable into ng2 HeroesComponent
+	 * adapter.upgradeNg1Provider(HeroService, { asToken: HeroService });
+	 *
+	 * // Make ng2 HeroService injectable into ng2 HeroesComponent
+	 * adapter.addProvider(HeroService)
+	 *
+	 * // Make ng2 HeroService injectable into ng2 HeroesComponent
+	 * app.factory('HeroService', adapter.downgradeNg2Provider(HeroService));
+	 */
 
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	var HeroesController = (function () {
-	    function HeroesController($scope, _HeroService_, _$location_) {
-	        this._HeroService_ = _HeroService_;
-	        this._$location_ = _$location_;
-	        this.heroes = this.getHeroes();
-	    }
-	    HeroesController.prototype.getHeroes = function () {
-	        var _this = this;
-	        this.selectedHero = undefined;
-	        this.heroes = [];
-	        this._HeroService_.getHeroes()
-	            .then(function (heroes) { return _this.heroes = heroes; });
-	        return this.heroes;
-	    };
-	    HeroesController.prototype.getSelectedClass = function (hero) {
-	        return { 'selected': hero === this.selectedHero };
-	    };
-	    HeroesController.prototype.gotoDetail = function () {
-	        this._$location_.path('detail/' + this.selectedHero.id);
-	    };
-	    HeroesController.prototype.onSelect = function (hero) {
-	        this.selectedHero = hero;
-	    };
-	    return HeroesController;
-	})();
-	exports.HeroesController = HeroesController;
-
-
-/***/ },
-/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(3);
+	__webpack_require__(2);
 	module.exports = angular;
 
 
 /***/ },
-/* 3 */
+/* 2 */
 /***/ function(module, exports) {
 
 	/**
@@ -29011,15 +29004,15 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(5);
+	__webpack_require__(4);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	/**
@@ -30016,7 +30009,7 @@
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports) {
 
 	var AppController = (function () {
@@ -30033,7 +30026,7 @@
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports) {
 
 	var DashboardController = (function () {
@@ -30055,6 +30048,38 @@
 	    return DashboardController;
 	})();
 	exports.DashboardController = DashboardController;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	var HeroesController = (function () {
+	    function HeroesController($scope, _HeroService_, _$location_) {
+	        this._HeroService_ = _HeroService_;
+	        this._$location_ = _$location_;
+	        this.heroes = this.getHeroes();
+	    }
+	    HeroesController.prototype.getHeroes = function () {
+	        var _this = this;
+	        this.selectedHero = undefined;
+	        this.heroes = [];
+	        this._HeroService_.getHeroes()
+	            .then(function (heroes) { return _this.heroes = heroes; });
+	        return this.heroes;
+	    };
+	    HeroesController.prototype.getSelectedClass = function (hero) {
+	        return { 'selected': hero === this.selectedHero };
+	    };
+	    HeroesController.prototype.gotoDetail = function () {
+	        this._$location_.path('detail/' + this.selectedHero.id);
+	    };
+	    HeroesController.prototype.onSelect = function (hero) {
+	        this.selectedHero = hero;
+	    };
+	    return HeroesController;
+	})();
+	exports.HeroesController = HeroesController;
 
 
 /***/ },
@@ -30082,9 +30107,30 @@
 
 /***/ },
 /* 9 */
+/***/ function(module, exports) {
+
+	var BadgeController = (function () {
+	    function BadgeController() {
+	    }
+	    return BadgeController;
+	})();
+	function BadgeDirective() {
+	    return {
+	        controller: BadgeController,
+	        controllerAs: 'ctrl',
+	        bindToController: { hero: '=' },
+	        template: '<span><span class="badge">{{ctrl.hero.id}}</span> {{ctrl.hero.name}}</span>',
+	        scope: {}
+	    };
+	}
+	exports.BadgeDirective = BadgeDirective;
+
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var mock_heroes_1 = __webpack_require__(10);
+	var mock_heroes_1 = __webpack_require__(11);
 	var HeroService = (function () {
 	    function HeroService() {
 	    }
@@ -30105,7 +30151,7 @@
 
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 	exports.HEROES = [
@@ -30123,7 +30169,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports) {
 
 	var RouterConfig = (function () {

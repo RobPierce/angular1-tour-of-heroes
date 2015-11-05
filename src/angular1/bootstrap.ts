@@ -4,6 +4,7 @@ import {AppController} from './app/app.component';
 import {DashboardController} from './dashboard/dashboard.component';
 import {HeroesController} from './heroes/heroes.component';
 import {HeroDetailController} from './detail/hero-detail.component';
+import {BadgeDirective} from './badge/badge.component';
 import {HeroService} from './hero.service';
 import {RouterConfig} from './router.config';
 
@@ -18,7 +19,8 @@ app
     HeroesController: HeroesController,
     HeroDetailController: HeroDetailController
   })
-  .service('HeroService', HeroService);
+  .service('HeroService', HeroService)
+  .directive('badge', BadgeDirective);
 
 
 // Angular 2 upgrade bootstrap
