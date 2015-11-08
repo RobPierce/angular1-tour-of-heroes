@@ -11,10 +11,12 @@
   <!--<script src="bundle.js"></script>-->
   <script>
     System.config({
-      packages: {'angular1': {defaultExtension: 'js'}},
+      defaultJSExtensions: true,
       map: {
-        'angular': '../../node_modules/angular/angular.js',
-        'angular-route': '../../node_modules/angular-route/angular-route.js'
+        'angular2/*': 'node_modules/angular2/*',
+        'angular': '../node_modules/angular/angular.js',
+        //'angular2/angular2': '/node_modules/angular2/angular2.js',
+        'angular-route': '../node_modules/angular-route/angular-route.js'
       }
     });
     System.import('bootstrap').catch(console.log.bind(console));
