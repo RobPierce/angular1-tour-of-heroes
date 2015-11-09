@@ -20,17 +20,17 @@ app
     HeroesController: HeroesController,
     HeroDetailController: HeroDetailController
   })
-  .service('HeroService', HeroService)
-  .directive('badge', BadgeDirective);
-
+  .service('HeroService', HeroService);
 
 // Angular 2 upgrade bootstrap
 import {adapter} from './adapter';
+import {BadgeComponent} from './angular2/components/badge.component';
+
+// Make ng2 component available in ng1
+app.directive('badge', adapter.downgradeNg2Component(BadgeComponent));
 
 adapter.bootstrap(document.body, ['tourOfHeroes']);
 
-// Make ng2 component available in ng1
-//app.directive('heroes', adapter.downgradeNg2Component(HeroesComponent);
 
 // Make ng1 HeroService injectable into ng2 HeroesComponent
 //adapter.upgradeNg1Provider(HeroService, {asToken: HeroService});
