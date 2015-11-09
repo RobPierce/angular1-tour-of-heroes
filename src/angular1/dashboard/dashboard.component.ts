@@ -1,5 +1,5 @@
 import {Hero} from '../hero';
-import {HeroService} from '../hero.service';
+import {HeroService} from '../../angular2/components/hero.service';
 
 export class DashboardController {
   public heroes: Hero[];

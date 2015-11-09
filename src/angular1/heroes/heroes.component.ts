@@ -1,4 +1,4 @@
-import {HeroService} from '../hero.service';
+import {HeroService} from '../../angular2/components/hero.service';
 import {Hero} from '../hero';
 
 export class HeroesController {

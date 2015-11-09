@@ -1,5 +1,5 @@
 import {Hero} from '../hero';
-import {HeroService} from '../hero.service';
+import {HeroService} from '../../angular2/components/hero.service';
 
 interface HeroDetailRouteParams extends ng.route.IRouteParamsService {
   id:string;
