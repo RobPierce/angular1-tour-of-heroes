@@ -2,10 +2,6 @@ var angular2_1 = require('angular2/angular2');
 var COMPONENT_SELECTOR = /^[\w|-]*$/;
 var SKEWER_CASE = /-(\w)/g;
 var directiveResolver = new angular2_1.DirectiveResolver();
-var Reflect = window.Reflect;
-if (!(Reflect && Reflect['getOwnMetadata'])) {
-    throw 'reflect-metadata shim is required when using class decorators';
-}
 function getComponentInfo(type) {
     var resolvedMetadata = directiveResolver.resolve(type);
     var selector = resolvedMetadata.selector;

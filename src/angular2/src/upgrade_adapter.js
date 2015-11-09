@@ -1,13 +1,14 @@
-///<reference path="./angular.d.ts"/>
 var angular2_1 = require('angular2/angular2');
 var application_common_1 = require('angular2/src/core/application_common');
 var application_ref_1 = require('angular2/src/core/application_ref');
 var compiler_1 = require('angular2/src/core/compiler/compiler');
+var async_1 = require('angular2/src/core/facade/async');
 var metadata_1 = require('./metadata');
 var util_1 = require('./util');
 var constants_1 = require('./constants');
 var downgrade_ng2_adapter_1 = require('./downgrade_ng2_adapter');
 var upgrade_ng1_adapter_1 = require('./upgrade_ng1_adapter');
+var angular = require('./angular_js');
 var upgradeCount = 0;
 /**
  * Use `UpgradeAdapter` to allow AngularJS v1 and Angular v2 to coexist in a single application.
@@ -46,7 +47,7 @@ var upgradeCount = 0;
  * 9. The new application is running in Angular v2 zone, and therefore it no longer needs calls to
  *    `$apply()`.
  *
- * ## Example
+ * ### Example
  *
  * ```
  * var adapter = new UpgradeAdapter();
@@ -114,7 +115,7 @@ var UpgradeAdapter = (function () {
      *   - Event:  `<comp (close)="doSomething()">`
      * - Content projection: yes
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * var adapter = new UpgradeAdapter();
@@ -185,7 +186,7 @@ var UpgradeAdapter = (function () {
      *   - `transclude`: supported.
      *
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * var adapter = new UpgradeAdapter();
@@ -230,7 +231,7 @@ var UpgradeAdapter = (function () {
      * [`bootstrap`](https://docs.angularjs.org/api/ng/function/angular.bootstrap) method. Unlike
      * AngularJS v1, this bootstrap is asynchronous.
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * var adapter = new UpgradeAdapter();
@@ -268,8 +269,8 @@ var UpgradeAdapter = (function () {
         var ng1Injector = null;
         var platformRef = angular2_1.platform();
         var applicationRef = platformRef.application([
-            application_ref_1.applicationCommonBindings(),
-            application_common_1.applicationDomBindings(),
+            application_ref_1.applicationCommonProviders(),
+            application_common_1.applicationDomProviders(),
             compiler_1.compilerProviders(),
             angular2_1.provide(constants_1.NG1_INJECTOR, { useFactory: function () { return ng1Injector; } }),
             angular2_1.provide(constants_1.NG1_COMPILE, { useFactory: function () { return ng1Injector.get(constants_1.NG1_COMPILE); } }),
@@ -314,7 +315,7 @@ var UpgradeAdapter = (function () {
             '$rootScope',
             function (injector, rootScope) {
                 ng1Injector = injector;
-                ngZone.overrideOnTurnDone(function () { return rootScope.$apply(); });
+                async_1.ObservableWrapper.subscribe(ngZone.onTurnDone, function (_) { ngZone.run(function () { return rootScope.$apply(); }); });
                 ng1compilePromise =
                     upgrade_ng1_adapter_1.UpgradeNg1ComponentAdapterBuilder.resolve(_this.downgradedComponents, injector);
             }
@@ -343,7 +344,7 @@ var UpgradeAdapter = (function () {
      * for this reason we provide an application global way of registering providers which is
      * consistent with single global injection in AngularJS v1.
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * class Greeter {
@@ -377,7 +378,7 @@ var UpgradeAdapter = (function () {
      * Allows AngularJS v1 service to be accessible from Angular v2.
      *
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * class Login { ... }
@@ -416,7 +417,7 @@ var UpgradeAdapter = (function () {
      * Allows Angular v2 service to be accessible from AngularJS v1.
      *
      *
-     * ## Example
+     * ### Example
      *
      * ```
      * class Example {

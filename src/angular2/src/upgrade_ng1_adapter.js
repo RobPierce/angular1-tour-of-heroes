@@ -1,6 +1,7 @@
 var angular2_1 = require('angular2/angular2');
 var constants_1 = require('./constants');
 var util_1 = require('./util');
+var angular = require('./angular_js');
 var CAMEL_CASE = /([A-Z])/g;
 var INITIAL_VALUE = {
     __UNINITIALIZED__: true

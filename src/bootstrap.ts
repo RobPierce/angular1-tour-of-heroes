@@ -25,10 +25,9 @@ app
 
 
 // Angular 2 upgrade bootstrap
-//import {adapter} from './adapter';
-//console.log(adapter);
+import {adapter} from './adapter';
 
-//adapter.bootstrap(document.body, ['tourOfHeroes']);
+adapter.bootstrap(document.body, ['tourOfHeroes']);
 
 // Make ng2 component available in ng1
 //app.directive('heroes', adapter.downgradeNg2Component(HeroesComponent);
